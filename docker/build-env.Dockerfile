@@ -1,4 +1,4 @@
-FROM debian:jessie-slim
+FROM debian:stable-slim
 RUN apt-get update
 RUN apt-get -y install build-essential bc
 RUN apt-get -y install libssl-dev

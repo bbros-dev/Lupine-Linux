@@ -4,7 +4,7 @@ qemu-test:
 
 build-env-image:
 	cd docker && \
-		docker build . -t linuxbuild:latest -f build-env.Dockerfile
+		podman build . -t linuxbuild:latest -f build-env.Dockerfile
 
 setup-osv:
 	git submodule update --init --recursive
@@ -17,11 +17,11 @@ patch-linux:
 		git apply ../kml_4.0_001.diff
 
 build-linux:
-	docker run -it -v "$(PWD)/linux":/linux-volume --rm linuxbuild:latest	\
+	podman run -it -v "$(PWD)/linux":/linux-volume --rm linuxbuild:latest	\
 		bash -c "make -j8 -C /linux-volume"
 
 build-linux-lto:
-	docker run -it -v "$(PWD)/linux-misc":/linux-volume --rm linuxbuild:latest	\
+	podman run -it -v "$(PWD)/linux-misc":/linux-volume --rm linuxbuild:latest	\
 		bash -c "make -j8 -C /linux-volume"
 
 run-hello:
@@ -129,4 +129,3 @@ ftrace:
 	./scripts/config --enable FUNCTION_GRAPH_TRACER; \
 	./scripts/config --enable FUNCTION_STACK_TRACER; \
 	./scripts/config --enable FUNCTION_DYNAMIC_TRACER;
-
